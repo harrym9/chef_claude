@@ -7,12 +7,12 @@ import { getRecipeFromChefClaude } from "../../ai.js";
 export default function Main() {
   //STATES
   const [ingredients, setIngredients] = React.useState([]);
-  const [recipeShown, setRecipeShown] = React.useState(false);
+  const [recipe, setRecipe] = React.useState([]);
 
   // ARROW FUNCTIONS
   async function getRecipe() {
-    const response = await getRecipeFromChefClaude(ingredients);
-    console.log(response);
+    const response = await getRecipeFromChefClaude(ingredients)
+    setRecipe(response);
   }
 
   const handleSubmit = (formData) => {
@@ -30,7 +30,7 @@ export default function Main() {
         <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
       )}
 
-      {recipeShown && <ClaudeResponse />}
+      {recipe ? <ClaudeResponse recipe={recipe} /> : undefined}
     </main>
   );
 }
